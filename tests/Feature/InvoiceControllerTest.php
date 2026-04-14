@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Api;
+namespace Tests\Feature;
 
 use App\Models\Invoice;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -121,6 +121,51 @@ class InvoiceControllerTest extends TestCase
             'id' => $invoice->id,
             'customer_name' => 'Jane Doe Updated',
             'amount' => 200.00,
+        ]);
+    }
+
+    public function test_update_invoice_validation_fails(): void
+    {
+        $invoice = Invoice::factory()->create();
+
+        $data = [
+            'customer_email' => 'not-an-email',
+            'amount' => -5,
+        ];
+
+        $response = $this->putJson("/api/invoices/{$invoice->id}", $data);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['customer_email', 'amount']);
+    }
+
+    public function test_cannot_update_invoice_to_existing_number(): void
+    {
+        $invoice1 = Invoice::factory()->create(['invoice_number' => 'INV-001']);
+        $invoice2 = Invoice::factory()->create(['invoice_number' => 'INV-002']);
+
+        $response = $this->putJson("/api/invoices/{$invoice2->id}", [
+            'invoice_number' => 'INV-001',
+        ]);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors(['invoice_number']);
+    }
+
+    public function test_can_update_invoice_with_same_number(): void
+    {
+        $invoice = Invoice::factory()->create(['invoice_number' => 'INV-001']);
+
+        $response = $this->putJson("/api/invoices/{$invoice->id}", [
+            'invoice_number' => 'INV-001',
+            'customer_name' => 'Updated Name',
+        ]);
+
+        $response->assertStatus(200);
+        $this->assertDatabaseHas('invoices', [
+            'id' => $invoice->id,
+            'invoice_number' => 'INV-001',
+            'customer_name' => 'Updated Name',
         ]);
     }
 
