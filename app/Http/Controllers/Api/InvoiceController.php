@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreInvoiceRequest;
 use App\Models\Invoice;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -22,19 +23,9 @@ class InvoiceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request): JsonResponse
+    public function store(StoreInvoiceRequest $request): JsonResponse
     {
-        $validated = $request->validate([
-            'invoice_number' => 'required|string|unique:invoices',
-            'customer_name' => 'required|string',
-            'customer_email' => 'required|email',
-            'amount' => 'required|numeric|min:0',
-            'status' => 'required|in:pending,paid,overdue',
-            'due_date' => 'required|date',
-            'paid_at' => 'nullable|date',
-        ]);
-
-        $invoice = Invoice::create($validated);
+        $invoice = Invoice::create($request->validated());
 
         return response()->json($invoice, Response::HTTP_CREATED);
     }
