@@ -117,14 +117,12 @@
         "Page loads without errors",
         "Table displays data"
       ],
-      "status": "complete",
+      "status": "issue_created",
       "issue_id": 9,
-      "pr_id": 13,
+      "pr_id": null,
       "retry_count": 0,
       "created_at": "2024-04-14T22:57:00",
-      "updated_at": null,
-      "merged": true,
-      "merged_at": "2024-04-14T23:50:00"
+      "updated_at": null
     },
     {
       "id": "T5",
@@ -170,14 +168,12 @@
       "test_cases": [
         "CRUD operations tested"
       ],
-      "status": "complete",
+      "status": "jules_triggered",
       "issue_id": 11,
-      "pr_id": 12,
+      "pr_id": null,
       "retry_count": 0,
       "created_at": "2026-04-14T22:58:49.827991",
-      "updated_at": null,
-      "merged": true,
-      "merged_at": "2024-04-14T23:50:00"
+      "updated_at": null
     },
     {
       "id": "T7",
@@ -297,20 +293,6 @@
       "task_id": "T4",
       "issue_id": 9,
       "message": "T4 created - Invoice listing page"
-    },
-    {
-      "timestamp": "2024-04-14T23:50:00",
-      "action": "task_completed",
-      "task_id": "T4",
-      "pr_id": 13,
-      "message": "T4 completed - PR #13 merged. Invoice listing page with Blade."
-    },
-    {
-      "timestamp": "2024-04-14T23:50:00",
-      "action": "task_completed",
-      "task_id": "T6",
-      "pr_id": 12,
-      "message": "T6 completed - PR #12 merged. InvoiceController feature tests."
     }
   ],
   "final_pr": null,
