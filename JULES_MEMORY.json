@@ -32,12 +32,14 @@
         "Migration runs without errors",
         "Invoice model can be created"
       ],
-      "status": "pr_opened",
+      "status": "complete",
       "issue_id": 1,
       "pr_id": 2,
       "retry_count": 0,
       "created_at": "2024-04-14T18:00:00",
-      "updated_at": "2024-04-14T18:52:58"
+      "updated_at": "2024-04-14T19:10:00",
+      "completed_at": "2024-04-14T19:10:00",
+      "merged": true
     },
     {
       "id": "T2",
@@ -241,7 +243,19 @@
       "timestamp": "2024-04-14T18:52:58",
       "action": "memory_created",
       "message": "JULES_MEMORY.json created for state tracking"
+    },
+    {
+      "timestamp": "2024-04-14T19:10:00",
+      "action": "task_completed",
+      "task_id": "T1",
+      "pr_id": 2,
+      "message": "T1 completed - PR #2 merged. Full Laravel project with Invoice model and migration."
     }
   ],
-  "final_pr": null
+  "final_pr": null,
+  "summary": {
+    "completed": 1,
+    "total": 7,
+    "progress": "14%"
+  }
 }
