@@ -44,7 +44,9 @@
       "title": "Create InvoiceController with CRUD operations",
       "description": "Implement InvoiceController with index, show, store, update, destroy",
       "type": "API",
-      "dependencies": ["T1"],
+      "dependencies": [
+        "T1"
+      ],
       "files_expected": [
         "app/Http/Controllers/Api/InvoiceController.php"
       ],
@@ -68,7 +70,9 @@
       "title": "Create StoreInvoiceRequest validation and API routes",
       "description": "Create form request validation and register API routes",
       "type": "API",
-      "dependencies": ["T2"],
+      "dependencies": [
+        "T2"
+      ],
       "files_expected": [
         "app/Http/Requests/StoreInvoiceRequest.php",
         "routes/api.php"
@@ -93,7 +97,9 @@
       "title": "Create invoice listing page with Blade",
       "description": "Create index.blade.php view for invoice listing",
       "type": "UI",
-      "dependencies": ["T3"],
+      "dependencies": [
+        "T3"
+      ],
       "files_expected": [
         "resources/views/invoices/index.blade.php"
       ],
@@ -117,7 +123,9 @@
       "title": "Create Web InvoiceController and web routes",
       "description": "Create web controller and routes for UI",
       "type": "UI",
-      "dependencies": ["T4"],
+      "dependencies": [
+        "T4"
+      ],
       "files_expected": [
         "app/Http/Controllers/Web/InvoiceController.php",
         "routes/web.php"
@@ -141,7 +149,9 @@
       "title": "Create InvoiceController feature tests",
       "description": "Create comprehensive feature tests for API",
       "type": "Test",
-      "dependencies": ["T3"],
+      "dependencies": [
+        "T3"
+      ],
       "files_expected": [
         "tests/Feature/InvoiceControllerTest.php"
       ],
@@ -164,7 +174,10 @@
       "title": "Create Invoice model unit tests and factory",
       "description": "Create factory and unit tests",
       "type": "Test",
-      "dependencies": ["T1", "T6"],
+      "dependencies": [
+        "T1",
+        "T6"
+      ],
       "files_expected": [
         "database/factories/InvoiceFactory.php",
         "tests/Unit/InvoiceModelTest.php"
@@ -186,11 +199,23 @@
     }
   ],
   "execution_levels": [
-    ["T1"],
-    ["T2"],
-    ["T3"],
-    ["T4", "T6"],
-    ["T5", "T7"]
+    [
+      "T1"
+    ],
+    [
+      "T2"
+    ],
+    [
+      "T3"
+    ],
+    [
+      "T4",
+      "T6"
+    ],
+    [
+      "T5",
+      "T7"
+    ]
   ],
   "log": [
     {
