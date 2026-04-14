@@ -1,0 +1,219 @@
+{
+  "project_name": "laravel-invoice-module",
+  "summary": "Complete invoice management module with database schema, REST API CRUD operations, validation, and simple UI listing page using Laravel and MySQL",
+  "constraints": [
+    "Must use Laravel 11+ patterns",
+    "Follow Laravel resource controller conventions",
+    "Use Eloquent ORM with relationships",
+    "Follow PSR-12 coding standards",
+    "Use Laravel validation for API requests",
+    "Blade templating for UI",
+    "MySQL database",
+    "Max 7 tasks"
+  ],
+  "validation": {
+    "passed": true,
+    "warnings": [],
+    "task_count": 7,
+    "score": 100
+  },
+  "tasks": [
+    {
+      "id": "T1",
+      "title": "Create invoices table migration and Invoice model",
+      "description": "Create database migration for invoices table with required columns (id, invoice_number, customer_name, customer_email, amount, status, due_date, paid_at, created_at, updated_at). Create Invoice Eloquent model with fillable attributes and casts for dates.",
+      "type": "DB",
+      "dependencies": [],
+      "inputs": [],
+      "outputs": ["Database table schema", "Invoice model class"],
+      "files_expected": [
+        "database/migrations/2024_01_15_000001_create_invoices_table.php",
+        "app/Models/Invoice.php"
+      ],
+      "acceptance_criteria": [
+        "Migration creates table with all required columns: id, invoice_number (unique), customer_name, customer_email, amount (decimal), status (enum: pending, paid, overdue), due_date (date), paid_at (nullable datetime)",
+        "Invoice model has $fillable array with all fields except id/timestamps",
+        "Invoice model has $casts for due_date and paid_at as datetime",
+        "Migration includes indexes on invoice_number (unique) and status"
+      ],
+      "test_cases": [
+        "Migration runs without errors (php artisan migrate)",
+        "Invoice model can be created with factory",
+        "Invoice model casts work correctly for dates"
+      ]
+    },
+    {
+      "id": "T2",
+      "title": "Create InvoiceController with CRUD operations",
+      "description": "Implement InvoiceController with index, show, store, update, and destroy methods following Laravel resource controller pattern. Use dependency injection for Invoice model.",
+      "type": "API",
+      "dependencies": ["T1"],
+      "inputs": ["Invoice model from T1"],
+      "outputs": ["REST API controller"],
+      "files_expected": [
+        "app/Http/Controllers/Api/InvoiceController.php"
+      ],
+      "acceptance_criteria": [
+        "Controller has index() method returning paginated invoices",
+        "Controller has show($id) method returning single invoice",
+        "Controller has store(Request $request) method creating new invoice",
+        "Controller has update(Request $request, $id) method updating invoice",
+        "Controller has destroy($id) method soft-deleting invoice",
+        "All methods return JSON responses with proper HTTP status codes",
+        "Uses type-hinted Request and Invoice model injection"
+      ],
+      "test_cases": [
+        "GET /api/invoices returns paginated list",
+        "GET /api/invoices/{id} returns single invoice",
+        "POST /api/invoices creates new invoice",
+        "PUT /api/invoices/{id} updates existing invoice",
+        "DELETE /api/invoices/{id} deletes invoice"
+      ]
+    },
+    {
+      "id": "T3",
+      "title": "Create StoreInvoiceRequest validation and API routes",
+      "description": "Create form request class for invoice validation with rules for invoice_number (unique), customer_name (required), customer_email (email), amount (numeric, positive), status (in:pending,paid,overdue), due_date (date, future). Register API routes in routes/api.php.",
+      "type": "API",
+      "dependencies": ["T2"],
+      "inputs": ["InvoiceController from T2"],
+      "outputs": ["Validation rules", "API routes"],
+      "files_expected": [
+        "app/Http/Requests/StoreInvoiceRequest.php",
+        "routes/api.php"
+      ],
+      "acceptance_criteria": [
+        "StoreInvoiceRequest validates invoice_number as required, unique:invoices",
+        "customer_name is required, string, max:255",
+        "customer_email is required, email",
+        "amount is required, numeric, min:0.01",
+        "status is required, in:pending,paid,overdue",
+        "due_date is required, date, after:today",
+        "routes/api.php uses Route::apiResource('invoices', InvoiceController::class)",
+        "Validation errors return 422 with proper error messages"
+      ],
+      "test_cases": [
+        "Invalid data returns 422 with validation errors",
+        "Duplicate invoice_number is rejected",
+        "Invalid email format is rejected",
+        "Negative amount is rejected",
+        "Past due_date is rejected"
+      ]
+    },
+    {
+      "id": "T4",
+      "title": "Create invoice listing page with Blade",
+      "description": "Create index.blade.php view for invoice listing page. Display table with columns: Invoice #, Customer, Amount, Status, Due Date, Actions. Include basic pagination.",
+      "type": "UI",
+      "dependencies": ["T3"],
+      "inputs": ["InvoiceController index method", "Validation rules"],
+      "outputs": ["Invoice listing UI"],
+      "files_expected": [
+        "resources/views/invoices/index.blade.php"
+      ],
+      "acceptance_criteria": [
+        "Page displays table with columns: Invoice #, Customer Name, Amount, Status, Due Date, Actions",
+        "Status has color-coded badges (pending=yellow, paid=green, overdue=red)",
+        "Amount is formatted as currency ($X,XXX.XX)",
+        "Due dates are formatted as MMM DD, YYYY",
+        "Pagination links are displayed when more than 15 records",
+        "Table is responsive on mobile devices",
+        "Empty state shows 'No invoices found' message"
+      ],
+      "test_cases": [
+        "Page loads without errors",
+        "Table displays invoice data correctly",
+        "Pagination works for multiple pages",
+        "Status colors render correctly",
+        "Empty state shows when no invoices exist"
+      ]
+    },
+    {
+      "id": "T5",
+      "title": "Create Web InvoiceController and web routes",
+      "description": "Create web controller for invoice views with index method. Add web routes in routes/web.php. Extend layout from existing app layout.",
+      "type": "UI",
+      "dependencies": ["T4"],
+      "inputs": ["index.blade.php view"],
+      "outputs": ["Web routes", "Web controller"],
+      "files_expected": [
+        "app/Http/Controllers/Web/InvoiceController.php",
+        "routes/web.php"
+      ],
+      "acceptance_criteria": [
+        "Web InvoiceController has index() method returning invoices view with paginated data",
+        "routes/web.php has Route::get('/invoices', [InvoiceController::class, 'index'])->name('invoices.index')",
+        "Controller uses same Invoice model as API",
+        "View extends layouts.app or creates minimal layout",
+        "Page has proper title 'Invoices' in browser tab",
+        "Breadcrumb or header shows 'Invoice Management'"
+      ],
+      "test_cases": [
+        "GET /invoices returns 200",
+        "View receives invoices variable",
+        "Page renders without errors",
+        "Navigation link to /invoices works"
+      ]
+    },
+    {
+      "id": "T6",
+      "title": "Create InvoiceController feature tests",
+      "description": "Create comprehensive feature tests for all API endpoints testing CRUD operations, validation, and edge cases.",
+      "type": "Test",
+      "dependencies": ["T3"],
+      "inputs": ["API routes", "InvoiceController", "StoreInvoiceRequest"],
+      "outputs": ["Feature test suite"],
+      "files_expected": [
+        "tests/Feature/InvoiceControllerTest.php"
+      ],
+      "acceptance_criteria": [
+        "Test covers GET /api/invoices (list)",
+        "Test covers GET /api/invoices/{id} (show)",
+        "Test covers POST /api/invoices with valid data",
+        "Test covers POST /api/invoices with invalid data (validation errors)",
+        "Test covers PUT /api/invoices/{id} (update)",
+        "Test covers DELETE /api/invoices/{id} (delete)",
+        "Tests use RefreshDatabase trait",
+        "All tests pass (php artisan test)"
+      ],
+      "test_cases": [
+        "Can_list_invoices - returns 200 with paginated data",
+        "Can_show_single_invoice - returns 200 with invoice data",
+        "Can_create_invoice_with_valid_data - returns 201",
+        "Cannot_create_invoice_with_invalid_data - returns 422",
+        "Can_update_invoice - returns 200",
+        "Can_delete_invoice - returns 204"
+      ]
+    },
+    {
+      "id": "T7",
+      "title": "Create Invoice model unit tests and factory",
+      "description": "Create InvoiceFactory for seeding and testing. Create unit tests for Invoice model including scopes, accessors, and relationships.",
+      "type": "Test",
+      "dependencies": ["T1", "T6"],
+      "inputs": ["Invoice model"],
+      "outputs": ["Factory", "Unit tests"],
+      "files_expected": [
+        "database/factories/InvoiceFactory.php",
+        "tests/Unit/InvoiceModelTest.php"
+      ],
+      "acceptance_criteria": [
+        "InvoiceFactory generates valid invoice with fake data",
+        "Factory uses faker for customer_name, email, amount",
+        "Factory generates unique invoice_number",
+        "Unit test covers scopePending()",
+        "Unit test covers scopeOverdue()",
+        "Unit test covers scopePaid()",
+        "Unit test covers isOverdue() accessor",
+        "All unit tests pass"
+      ],
+      "test_cases": [
+        "Factory creates invoice with all fields populated",
+        "scopePending returns only pending invoices",
+        "scopeOverdue returns invoices past due_date",
+        "isOverdue returns true for past due_date",
+        "isOverdue returns false for future due_date"
+      ]
+    }
+  ]
+}
