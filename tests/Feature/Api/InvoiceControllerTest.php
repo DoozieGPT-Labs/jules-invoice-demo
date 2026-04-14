@@ -79,6 +79,30 @@ class InvoiceControllerTest extends TestCase
         ]);
     }
 
+    public function test_create_invoice_validation_fails(): void
+    {
+        $data = [
+            'invoice_number' => '', // Empty
+            'customer_name' => '', // Empty
+            'customer_email' => 'invalid-email', // Invalid email
+            'amount' => -10, // Invalid amount
+            'status' => 'invalid-status', // Invalid status
+            'due_date' => 'not-a-date', // Invalid date
+        ];
+
+        $response = $this->postJson('/api/invoices', $data);
+
+        $response->assertStatus(422)
+            ->assertJsonValidationErrors([
+                'invoice_number',
+                'customer_name',
+                'customer_email',
+                'amount',
+                'status',
+                'due_date',
+            ]);
+    }
+
     public function test_can_update_invoice(): void
     {
         $invoice = Invoice::factory()->create();
