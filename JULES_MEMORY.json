@@ -89,11 +89,11 @@
         "Invalid data returns 422",
         "Valid data passes"
       ],
-      "status": "jules_triggered",
-      "issue_id": 5,
+      "status": "issue_created",
+      "issue_id": 6,
       "pr_id": null,
       "retry_count": 0,
-      "created_at": "2026-04-14T22:08:37.605013",
+      "created_at": "2024-04-14T16:39:00",
       "updated_at": null
     },
     {
@@ -271,6 +271,12 @@
       "task_id": "T2",
       "pr_id": 4,
       "message": "T2 completed - PR #4 merged. InvoiceController with CRUD operations."
+    },
+    {
+      "timestamp": "2024-04-14T22:10:00",
+      "action": "duplicate_detected",
+      "task_id": "T3",
+      "message": "Duplicate issue #5 detected and closed. Using #6."
     }
   ],
   "final_pr": null,
