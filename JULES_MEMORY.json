@@ -60,12 +60,14 @@
         "GET /api/invoices returns list",
         "POST /api/invoices creates invoice"
       ],
-      "status": "pr_opened",
+      "status": "complete",
       "issue_id": 3,
       "pr_id": 4,
       "retry_count": 0,
       "created_at": "2024-04-14T19:15:00",
-      "updated_at": "2024-04-14T22:07:00"
+      "updated_at": "2024-04-14T22:08:00",
+      "merged": true,
+      "merged_at": "2024-04-14T22:08:00"
     },
     {
       "id": "T3",
@@ -87,11 +89,11 @@
         "Invalid data returns 422",
         "Valid data passes"
       ],
-      "status": "pending",
-      "issue_id": null,
+      "status": "jules_triggered",
+      "issue_id": 5,
       "pr_id": null,
       "retry_count": 0,
-      "created_at": null,
+      "created_at": "2026-04-14T22:08:37.605013",
       "updated_at": null
     },
     {
@@ -262,6 +264,13 @@
       "task_id": "T2",
       "pr_id": 4,
       "message": "Jules opened PR #4 for T2"
+    },
+    {
+      "timestamp": "2024-04-14T22:08:00",
+      "action": "task_completed",
+      "task_id": "T2",
+      "pr_id": 4,
+      "message": "T2 completed - PR #4 merged. InvoiceController with CRUD operations."
     }
   ],
   "final_pr": null,
