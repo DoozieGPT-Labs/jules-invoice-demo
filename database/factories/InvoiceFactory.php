@@ -34,4 +34,26 @@ class InvoiceFactory extends Factory
             'paid_at' => null,
         ];
     }
+
+    /**
+     * Indicate that the invoice is paid.
+     */
+    public function paid(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => 'paid',
+            'paid_at' => now(),
+        ]);
+    }
+
+    /**
+     * Indicate that the invoice is overdue.
+     */
+    public function overdue(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'status' => 'overdue',
+            'due_date' => now()->subDays(7),
+        ]);
+    }
 }

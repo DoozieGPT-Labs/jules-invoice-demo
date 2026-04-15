@@ -35,4 +35,44 @@ class Invoice extends Model
         'paid_at' => 'datetime',
         'amount' => 'decimal:2',
     ];
+
+    /**
+     * Check if the invoice is paid.
+     */
+    public function isPaid(): bool
+    {
+        return $this->status === 'paid';
+    }
+
+    /**
+     * Check if the invoice is overdue.
+     */
+    public function isOverdue(): bool
+    {
+        return $this->status === 'overdue';
+    }
+
+    /**
+     * Scope a query to only include paid invoices.
+     */
+    public function scopePaid($query)
+    {
+        return $query->where('status', 'paid');
+    }
+
+    /**
+     * Scope a query to only include pending invoices.
+     */
+    public function scopePending($query)
+    {
+        return $query->where('status', 'pending');
+    }
+
+    /**
+     * Scope a query to only include overdue invoices.
+     */
+    public function scopeOverdue($query)
+    {
+        return $query->where('status', 'overdue');
+    }
 }
