@@ -117,12 +117,13 @@
         "Page loads without errors",
         "Table displays data"
       ],
-      "status": "issue_created",
+      "status": "complete",
       "issue_id": 9,
-      "pr_id": null,
+      "pr_id": 13,
       "retry_count": 0,
       "created_at": "2024-04-14T22:57:00",
-      "updated_at": null
+      "updated_at": null,
+      "merged": true
     },
     {
       "id": "T5",
@@ -143,11 +144,11 @@
       "test_cases": [
         "GET /invoices returns 200"
       ],
-      "status": "pending",
-      "issue_id": null,
+      "status": "jules_triggered",
+      "issue_id": 14,
       "pr_id": null,
       "retry_count": 0,
-      "created_at": null,
+      "created_at": "2026-04-15T16:18:56.737167",
       "updated_at": null
     },
     {
@@ -168,12 +169,13 @@
       "test_cases": [
         "CRUD operations tested"
       ],
-      "status": "jules_triggered",
+      "status": "complete",
       "issue_id": 11,
-      "pr_id": null,
+      "pr_id": 12,
       "retry_count": 0,
       "created_at": "2026-04-14T22:58:49.827991",
-      "updated_at": null
+      "updated_at": null,
+      "merged": true
     },
     {
       "id": "T7",
@@ -196,11 +198,11 @@
         "Factory works",
         "Model methods tested"
       ],
-      "status": "pending",
-      "issue_id": null,
+      "status": "jules_triggered",
+      "issue_id": 15,
       "pr_id": null,
       "retry_count": 0,
-      "created_at": null,
+      "created_at": "2026-04-15T16:18:58.790970",
       "updated_at": null
     }
   ],
