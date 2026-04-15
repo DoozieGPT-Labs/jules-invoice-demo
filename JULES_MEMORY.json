@@ -144,11 +144,11 @@
       "test_cases": [
         "GET /invoices returns 200"
       ],
-      "status": "jules_triggered",
-      "issue_id": 14,
+      "status": "issue_created",
+      "issue_id": 16,
       "pr_id": null,
       "retry_count": 0,
-      "created_at": "2026-04-15T16:18:56.737167",
+      "created_at": "2026-04-15T16:20:00",
       "updated_at": null
     },
     {
@@ -198,11 +198,11 @@
         "Factory works",
         "Model methods tested"
       ],
-      "status": "jules_triggered",
-      "issue_id": 15,
+      "status": "issue_created",
+      "issue_id": 17,
       "pr_id": null,
       "retry_count": 0,
-      "created_at": "2026-04-15T16:18:58.790970",
+      "created_at": "2026-04-15T16:22:00",
       "updated_at": null
     }
   ],
@@ -295,6 +295,20 @@
       "task_id": "T4",
       "issue_id": 9,
       "message": "T4 created - Invoice listing page"
+    },
+    {
+      "timestamp": "2026-04-15T16:20:00",
+      "action": "issue_created",
+      "task_id": "T5",
+      "issue_id": 16,
+      "message": "T5 created - Web InvoiceController and routes"
+    },
+    {
+      "timestamp": "2026-04-15T16:22:00",
+      "action": "issue_created",
+      "task_id": "T7",
+      "issue_id": 17,
+      "message": "T7 created - Invoice model unit tests and factory"
     }
   ],
   "final_pr": null,
