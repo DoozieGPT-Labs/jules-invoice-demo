@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Invoice;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,7 +26,8 @@ class InvoiceFactory extends Factory
     public function definition(): array
     {
         return [
-            'invoice_number' => 'INV-' . $this->faker->unique()->numberBetween(1000, 9999),
+            'user_id' => User::factory(),
+            'invoice_number' => 'INV-' . $this->faker->unique()->numberBetween(1000, 999999),
             'customer_name' => $this->faker->name(),
             'customer_email' => $this->faker->safeEmail(),
             'amount' => $this->faker->randomFloat(2, 10, 1000),
@@ -33,27 +35,5 @@ class InvoiceFactory extends Factory
             'due_date' => $this->faker->dateTimeBetween('now', '+1 month'),
             'paid_at' => null,
         ];
-    }
-
-    /**
-     * Indicate that the invoice is paid.
-     */
-    public function paid(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'status' => 'paid',
-            'paid_at' => now(),
-        ]);
-    }
-
-    /**
-     * Indicate that the invoice is overdue.
-     */
-    public function overdue(): static
-    {
-        return $this->state(fn (array $attributes) => [
-            'status' => 'overdue',
-            'due_date' => now()->subDays(7),
-        ]);
     }
 }
